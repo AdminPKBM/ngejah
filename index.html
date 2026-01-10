@@ -15,19 +15,21 @@
         .glass { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(10px); }
         .hero-gradient { background: linear-gradient(to right, rgba(0,0,0,0.7), rgba(0,0,0,0.2)); }
         
-        /* Mobile Menu Animation */
-        #mobile-menu { transition: transform 0.3s ease-in-out; transform: translateX(100%); }
-        #mobile-menu.open { transform: translateX(0); }
+        /* Tambahan CSS untuk Navigasi Mobile */
+        #mobile-overlay { transition: opacity 0.3s ease; pointer-events: none; opacity: 0; }
+        #mobile-overlay.active { pointer-events: auto; opacity: 1; }
+        #mobile-drawer { transition: transform 0.3s ease-in-out; transform: translateX(100%); }
+        #mobile-drawer.active { transform: translateX(0); }
     </style>
 </head>
-<body class="bg-[#fcfcfc] text-slate-900 overflow-x-hidden">
+<body class="bg-[#fcfcfc] text-slate-900">
 
     <header class="glass fixed top-0 w-full z-[100] border-b border-gray-100">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
             <div class="flex items-center space-x-3 cursor-pointer" onclick="showPage('home')">
                 <img src="https://th.bing.com/th/id/OIP.x_GWXjuzFa3PLePeez0r1AHaHa?w=108&h=108&c=1&bgcl=7871c9&r=0&o=7&dpr=1.3&pid=ImgRC&rm=3" 
                      alt="Logo Ngejah" class="w-10 h-10 rounded-full shadow-md">
-                <span class="text-lg md:text-xl font-extrabold tracking-tight text-blue-900">KOMUNITAS NGEJAH</span>
+                <span class="text-xl font-extrabold tracking-tight text-blue-900">KOMUNITAS NGEJAH</span>
             </div>
             
             <ul class="hidden lg:flex space-x-8 font-semibold text-sm uppercase tracking-wider">
@@ -35,41 +37,42 @@
                 <li><a href="javascript:void(0)" onclick="showPage('profil')" class="nav-link hover:text-blue-600 transition px-1">Profil</a></li>
                 <li><a href="javascript:void(0)" onclick="showPage('program')" class="nav-link hover:text-blue-600 transition px-1">Program</a></li>
                 <li><a href="javascript:void(0)" onclick="showPage('penghargaan')" class="nav-link hover:text-blue-600 transition px-1">Penghargaan</a></li>
-                <li><a href="javascript:void(0)" onclick="showPage('pustaka')" class="nav-link hover:text-blue-600 transition px-1">Pustaka</a></li>
+                <li><a href="javascript:void(0)" onclick="showPage('pustaka')" class="nav-link hover:text-blue-600 transition px-1">Pustaka Digital</a></li>
                 <li><a href="javascript:void(0)" onclick="showPage('kontak')" class="nav-link hover:text-blue-600 transition px-1">Kontak</a></li>
             </ul>
 
             <div class="flex items-center space-x-4">
                 <a href="https://link.dana.id/qr/81223546686" target="_blank" 
                    class="hidden md:flex bg-blue-600 text-white px-6 py-2.5 rounded-full hover:bg-blue-700 transition shadow-lg shadow-blue-200 font-bold text-sm items-center">
-                    <i class="fas fa-heart mr-2"></i> Donasi
+                    <i class="fas fa-heart mr-2"></i> Donasi DANA
                 </a>
-
-                <button class="lg:hidden text-blue-900 text-2xl focus:outline-none" onclick="toggleMenu()">
-                    <i class="fas fa-bars" id="menu-icon"></i>
+                
+                <button onclick="toggleMobileMenu(true)" class="lg:hidden text-blue-900 p-2 focus:outline-none">
+                    <i class="fas fa-bars text-2xl"></i>
                 </button>
             </div>
         </nav>
     </header>
 
-    <div id="mobile-menu" class="fixed inset-0 bg-white z-[150] lg:hidden flex flex-col p-8 h-screen">
-        <div class="flex justify-between items-center mb-12">
-            <span class="font-bold text-blue-900 uppercase">Menu Navigasi</span>
-            <button onclick="toggleMenu()" class="text-3xl text-gray-500">&times;</button>
-        </div>
-        <ul class="space-y-6 text-2xl font-bold text-blue-950">
-            <li><a href="javascript:void(0)" onclick="mobileNav('home')">Beranda</a></li>
-            <li><a href="javascript:void(0)" onclick="mobileNav('profil')">Profil</a></li>
-            <li><a href="javascript:void(0)" onclick="mobileNav('program')">Program</a></li>
-            <li><a href="javascript:void(0)" onclick="mobileNav('penghargaan')">Penghargaan</a></li>
-            <li><a href="javascript:void(0)" onclick="mobileNav('pustaka')">Pustaka Digital</a></li>
-            <li><a href="javascript:void(0)" onclick="mobileNav('kontak')">Kontak</a></li>
-        </ul>
-        <div class="mt-auto pb-10">
-            <a href="https://link.dana.id/qr/81223546686" target="_blank" 
-               class="w-full bg-blue-600 text-white py-4 rounded-2xl font-bold flex items-center justify-center text-lg">
-                <i class="fas fa-heart mr-3"></i> Donasi Sekarang
-            </a>
+    <div id="mobile-overlay" class="fixed inset-0 bg-black/50 z-[110] lg:hidden" onclick="toggleMobileMenu(false)">
+        <div id="mobile-drawer" class="absolute right-0 top-0 h-full w-3/4 max-w-sm bg-white shadow-2xl p-6 flex flex-col" onclick="event.stopPropagation()">
+            <div class="flex justify-between items-center mb-8">
+                <span class="font-bold text-blue-900">MENU</span>
+                <button onclick="toggleMobileMenu(false)" class="text-2xl text-gray-500">&times;</button>
+            </div>
+            <ul class="space-y-6 font-bold text-lg text-slate-700">
+                <li><a href="javascript:void(0)" onclick="handleMobileNav('home')" class="block hover:text-blue-600">Beranda</a></li>
+                <li><a href="javascript:void(0)" onclick="handleMobileNav('profil')" class="block hover:text-blue-600">Profil</a></li>
+                <li><a href="javascript:void(0)" onclick="handleMobileNav('program')" class="block hover:text-blue-600">Program</a></li>
+                <li><a href="javascript:void(0)" onclick="handleMobileNav('penghargaan')" class="block hover:text-blue-600">Penghargaan</a></li>
+                <li><a href="javascript:void(0)" onclick="handleMobileNav('pustaka')" class="block hover:text-blue-600">Pustaka Digital</a></li>
+                <li><a href="javascript:void(0)" onclick="handleMobileNav('kontak')" class="block hover:text-blue-600">Kontak</a></li>
+            </ul>
+            <div class="mt-auto">
+                <a href="https://link.dana.id/qr/81223546686" target="_blank" class="w-full bg-blue-600 text-white py-4 rounded-xl font-bold flex items-center justify-center">
+                    <i class="fas fa-heart mr-2"></i> Donasi DANA
+                </a>
+            </div>
         </div>
     </div>
 
@@ -80,21 +83,23 @@
                  class="absolute inset-0 w-full h-full object-cover" alt="Hero Image">
             <div class="relative z-20 container mx-auto px-6 h-full flex flex-col justify-center">
                 <span class="text-blue-400 font-bold tracking-widest uppercase mb-4 block">Literasi Berbasis Masyarakat</span>
-                <h1 class="text-4xl md:text-7xl font-extrabold text-white leading-tight max-w-3xl">
+                <h1 class="text-5xl md:text-7xl font-extrabold text-white leading-tight max-w-3xl">
                     Membangun <br> <span class="text-blue-400">Budaya Kritis</span>
                 </h1>
                 <p class="text-gray-200 text-lg mt-6 max-w-xl leading-relaxed">
-                    Menyemai semangat gotong royong melalui baca, tulis, dan gerak literasi dari Kp. Sukawangi.
+                    Menyemai semangat gotong royong melalui baca, tulis, dan gerak literasi dari Kp. Sukawangi untuk masa depan yang lebih terang.
                 </p>
+                <div class="mt-10 flex space-x-4">
+                    <button onclick="showPage('profil')" class="bg-white text-blue-900 px-8 py-4 rounded-xl font-bold hover:bg-gray-100 transition shadow-xl">
+                        Kenali Kami
+                    </button>
+                </div>
             </div>
         </section>
-    </main>
+        </main>
 
-    <main id="profil" class="page pt-32 container mx-auto px-6 pb-24">
-        <h2 class="text-4xl font-extrabold text-blue-950">Tentang Komunitas Ngejah</h2>
-    </main>
     <script>
-        // Fungsi untuk menampilkan halaman
+        // Fungsi Navigasi (Tetap)
         function showPage(pageId) {
             document.querySelectorAll('.page').forEach(p => {
                 p.classList.remove('active');
@@ -106,33 +111,29 @@
                 setTimeout(() => { nextActive.style.opacity = '1'; }, 50);
             }
 
-            // Update status link navigasi (Desktop)
             document.querySelectorAll('.nav-link').forEach(link => {
                 link.classList.remove('nav-active');
-                const onclickAttr = link.getAttribute('onclick');
-                if(onclickAttr && onclickAttr.includes(pageId)) link.classList.add('nav-active');
+                if(link.getAttribute('onclick').includes(pageId)) link.classList.add('nav-active');
             });
-            
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // Fungsi Toggle Mobile Menu
-        function toggleMenu() {
-            const menu = document.getElementById('mobile-menu');
-            menu.classList.toggle('open');
-            
-            // Mencegah scroll pada body saat menu terbuka
-            if (menu.classList.contains('open')) {
-                document.body.style.overflow = 'hidden';
+        // Fungsi Tambahan untuk Navigasi Mobile
+        function toggleMobileMenu(isOpen) {
+            const overlay = document.getElementById('mobile-overlay');
+            const drawer = document.getElementById('mobile-drawer');
+            if (isOpen) {
+                overlay.classList.add('active');
+                drawer.classList.add('active');
             } else {
-                document.body.style.overflow = 'auto';
+                overlay.classList.remove('active');
+                drawer.classList.remove('active');
             }
         }
 
-        // Fungsi navigasi khusus mobile (Menutup menu setelah klik)
-        function mobileNav(pageId) {
-            toggleMenu();
-            showPage(pageId);
+        function handleMobileNav(pageId) {
+            toggleMobileMenu(false); // Tutup menu dulu
+            showPage(pageId);       // Pindah halaman
         }
     </script>
 </body>
