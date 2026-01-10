@@ -148,14 +148,81 @@
         </div>
     </main>
 
-    <main id="pustaka" class="page pt-32 container mx-auto px-6 pb-24">
-        <div class="flex justify-between items-end mb-12">
-            <h2 class="text-4xl font-extrabold text-blue-950">Pustaka Digital</h2>
-            <p class="text-gray-500">Akses koleksi buku dan karya warga secara daring.</p>
+    <<main id="pustaka" class="page pt-32 container mx-auto px-6 pb-24">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-6">
+            <div>
+                <h2 class="text-4xl font-extrabold text-blue-950">Pustaka Digital</h2>
+                <p class="text-gray-500 mt-2 text-lg">Menyediakan akses ke <span class="text-blue-600 font-bold">5.240</span> koleksi buku fisik & digital.</p>
+            </div>
+            <div class="relative w-full md:w-96">
+                <i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                <input type="text" id="bookSearch" placeholder="Cari judul buku atau penulis..." 
+                    class="w-full pl-12 pr-4 py-3 rounded-2xl bg-white border border-gray-200 shadow-sm focus:ring-2 focus:ring-blue-500 outline-none transition">
+            </div>
         </div>
-        <div class="grid grid-cols-2 md:grid-cols-5 gap-6">
-            <div class="bg-gray-100 aspect-[3/4] rounded-2xl flex items-center justify-center border-2 border-dashed border-gray-300">
-                <p class="text-gray-400 text-xs font-bold uppercase">Segera Hadir</p>
+
+        <div class="flex flex-wrap gap-3 mb-10">
+            <button class="px-6 py-2 bg-blue-600 text-white rounded-full text-sm font-bold shadow-md shadow-blue-100">Semua Koleksi</button>
+            <button class="px-6 py-2 bg-white text-gray-600 border border-gray-100 rounded-full text-sm font-bold hover:bg-gray-50 transition">Sastra</button>
+            <button class="px-6 py-2 bg-white text-gray-600 border border-gray-100 rounded-full text-sm font-bold hover:bg-gray-50 transition">Pendidikan</button>
+            <button class="px-6 py-2 bg-white text-gray-600 border border-gray-100 rounded-full text-sm font-bold hover:bg-gray-50 transition">Karya Warga</button>
+            <button class="px-6 py-2 bg-white text-gray-600 border border-gray-100 rounded-full text-sm font-bold hover:bg-gray-50 transition">Anak</button>
+        </div>
+
+        <div id="bookGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
+            <div class="book-card group cursor-pointer">
+                <div class="aspect-[3/4] bg-gray-200 rounded-2xl mb-4 overflow-hidden shadow-sm group-hover:shadow-xl group-hover:-translate-y-2 transition-all duration-300">
+                    <img src="https://i.pinimg.com/564x/4f/2e/8b/4f2e8b087094d762086208e927494511.jpg" class="w-full h-full object-cover" alt="Cover Buku">
+                </div>
+                <h4 class="font-bold text-sm text-blue-900 line-clamp-1">Bumi Manusia</h4>
+                <p class="text-xs text-gray-500 italic">Pramoedya Ananta Toer</p>
+            </div>
+
+            <div class="book-card group cursor-pointer">
+                <div class="aspect-[3/4] bg-gray-200 rounded-2xl mb-4 overflow-hidden shadow-sm group-hover:shadow-xl group-hover:-translate-y-2 transition-all duration-300">
+                    <img src="https://i.pinimg.com/564x/f3/96/96/f396967527663240e83870624a9a0873.jpg" class="w-full h-full object-cover" alt="Cover Buku">
+                </div>
+                <h4 class="font-bold text-sm text-blue-900 line-clamp-1">Laskar Pelangi</h4>
+                <p class="text-xs text-gray-500 italic">Andrea Hirata</p>
+            </div>
+
+            <div class="book-card group cursor-pointer">
+                <div class="aspect-[3/4] bg-gray-200 rounded-2xl mb-4 overflow-hidden shadow-sm group-hover:shadow-xl group-hover:-translate-y-2 transition-all duration-300">
+                    <img src="https://i.pinimg.com/564x/27/3b/6a/273b6a935473e0a30b561c2016f49942.jpg" class="w-full h-full object-cover" alt="Cover Buku">
+                </div>
+                <h4 class="font-bold text-sm text-blue-900 line-clamp-1">Filosofi Teras</h4>
+                <p class="text-xs text-gray-500 italic">Henry Manampiring</p>
+            </div>
+
+            <div class="book-card group cursor-pointer">
+                <div class="aspect-[3/4] bg-gray-200 rounded-2xl mb-4 overflow-hidden shadow-sm group-hover:shadow-xl group-hover:-translate-y-2 transition-all duration-300">
+                    <img src="https://i.pinimg.com/564x/54/2e/7e/542e7e390236a28790117b4c442e6129.jpg" class="w-full h-full object-cover" alt="Cover Buku">
+                </div>
+                <h4 class="font-bold text-sm text-blue-900 line-clamp-1">Hujan</h4>
+                <p class="text-xs text-gray-500 italic">Tere Liye</p>
+            </div>
+
+            <div class="book-card group cursor-pointer">
+                <div class="aspect-[3/4] bg-gray-200 rounded-2xl mb-4 overflow-hidden shadow-sm group-hover:shadow-xl group-hover:-translate-y-2 transition-all duration-300">
+                    <img src="https://i.pinimg.com/564x/7a/2c/61/7a2c61099276c26880da67f139c288f6.jpg" class="w-full h-full object-cover" alt="Cover Buku">
+                </div>
+                <h4 class="font-bold text-sm text-blue-900 line-clamp-1">Negeri 5 Menara</h4>
+                <p class="text-xs text-gray-500 italic">A. Fuadi</p>
+            </div>
+
+            <div class="book-card group cursor-pointer">
+                <div class="aspect-[3/4] bg-gray-200 rounded-2xl mb-4 overflow-hidden shadow-sm group-hover:shadow-xl group-hover:-translate-y-2 transition-all duration-300">
+                    <img src="https://i.pinimg.com/564x/8d/62/83/8d6283726715f82c4424362149e623ec.jpg" class="w-full h-full object-cover" alt="Cover Buku">
+                </div>
+                <h4 class="font-bold text-sm text-blue-900 line-clamp-1">Madilog</h4>
+                <p class="text-xs text-gray-500 italic">Tan Malaka</p>
+            </div>
+            
+            <div class="col-span-full py-12 text-center border-2 border-dashed border-gray-100 rounded-3xl">
+                <p class="text-gray-400 font-medium italic">Dan 5.234 judul buku lainnya dalam katalog fisik kami...</p>
+                <button class="mt-4 bg-blue-50 text-blue-600 px-8 py-3 rounded-xl font-bold hover:bg-blue-100 transition">
+                    Lihat Katalog Lengkap (PDF)
+                </button>
             </div>
         </div>
     </main>
