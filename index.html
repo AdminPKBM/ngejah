@@ -17,6 +17,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 
     <style>
+        #mobile-overlay { transition: opacity 0.3s ease; }
+#mobile-drawer { transition: transform 0.3s ease-in-out; transform: translateX(100%); }
+#mobile-overlay.active { display: block; opacity: 1; }
+#mobile-drawer.active { transform: translateX(0); }
 
         body { font-family: 'Plus Jakarta Sans', sans-serif; }
 
@@ -39,49 +43,54 @@
 
 
     <header class="glass fixed top-0 w-full z-[100] border-b border-gray-100">
-
-        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-
-            <div class="flex items-center space-x-3 cursor-pointer" onclick="showPage('home')">
-
-                <img src="https://th.bing.com/th/id/OIP.x_GWXjuzFa3PLePeez0r1AHaHa?w=108&h=108&c=1&bgcl=7871c9&r=0&o=7&dpr=1.3&pid=ImgRC&rm=3" 
-
-                     alt="Logo Ngejah" class="w-10 h-10 rounded-full shadow-md">
-
-                <span class="text-xl font-extrabold tracking-tight text-blue-900">KOMUNITAS NGEJAH</span>
-
-            </div>
-
-            
-
-            <ul class="hidden lg:flex space-x-8 font-semibold text-sm uppercase tracking-wider">
-
-                <li><a href="javascript:void(0)" onclick="showPage('home')" class="nav-link nav-active hover:text-blue-600 transition px-1">Beranda</a></li>
-
-                <li><a href="javascript:void(0)" onclick="showPage('profil')" class="nav-link hover:text-blue-600 transition px-1">Profil</a></li>
-
-                <li><a href="javascript:void(0)" onclick="showPage('program')" class="nav-link hover:text-blue-600 transition px-1">Program</a></li>
-
-                <li><a href="javascript:void(0)" onclick="showPage('penghargaan')" class="nav-link hover:text-blue-600 transition px-1">Penghargaan</a></li>
-
-                <li><a href="javascript:void(0)" onclick="showPage('pustaka')" class="nav-link hover:text-blue-600 transition px-1">Pustaka Digital</a></li>
-
-                <li><a href="javascript:void(0)" onclick="showPage('kontak')" class="nav-link hover:text-blue-600 transition px-1">Kontak</a></li>
-
-            </ul>
-
-
+    <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+        <div class="flex items-center space-x-3 cursor-pointer" onclick="showPage('home')">
+            <img src="https://th.bing.com/th/id/OIP.x_GWXjuzFa3PLePeez0r1AHaHa?w=108&h=108&c=1&bgcl=7871c9&r=0&o=7&dpr=1.3&pid=ImgRC&rm=3" 
+                 alt="Logo Ngejah" class="w-10 h-10 rounded-full shadow-md">
+            <span class="text-xl font-extrabold tracking-tight text-blue-900 uppercase">Komunitas Ngejah</span>
+        </div>
+        
+        <ul class="hidden lg:flex space-x-8 font-semibold text-sm uppercase tracking-wider">
+            <li><a href="javascript:void(0)" onclick="showPage('home')" class="nav-link nav-active hover:text-blue-600 transition px-1">Beranda</a></li>
+            <li><a href="javascript:void(0)" onclick="showPage('profil')" class="nav-link hover:text-blue-600 transition px-1">Profil</a></li>
+            <li><a href="javascript:void(0)" onclick="showPage('program')" class="nav-link hover:text-blue-600 transition px-1">Program</a></li>
+            <li><a href="javascript:void(0)" onclick="showPage('penghargaan')" class="nav-link hover:text-blue-600 transition px-1">Penghargaan</a></li>
+            <li><a href="javascript:void(0)" onclick="showPage('pustaka')" class="nav-link hover:text-blue-600 transition px-1">Pustaka Digital</a></li>
+            <li><a href="javascript:void(0)" onclick="showPage('kontak')" class="nav-link hover:text-blue-600 transition px-1">Kontak</a></li>
+        </ul>
 
         <div class="flex items-center space-x-4">
+            <a href="https://link.dana.id/qr/81223546686" target="_blank" 
+               class="hidden md:flex bg-blue-600 text-white px-6 py-2.5 rounded-full hover:bg-blue-700 transition shadow-lg font-bold text-sm items-center">
+                <i class="fas fa-heart mr-2"></i> Donasi DANA
+            </a>
+            <button onclick="toggleMobileMenu(true)" class="lg:hidden text-blue-900 text-2xl">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+</header>
 
-    <a href="https://link.dana.id/qr/81223546686" target="_blank" 
-
-       class="bg-blue-600 text-white px-6 py-2.5 rounded-full hover:bg-blue-700 transition shadow-lg shadow-blue-200 font-bold text-sm flex items-center">
-
-        <i class="fas fa-heart mr-2"></i> Donasi DANA
-
-    </a>
-
+<div id="mobile-overlay" class="fixed inset-0 bg-black/50 z-[150] hidden opacity-0 transition-opacity" onclick="toggleMobileMenu(false)">
+    <div id="mobile-drawer" class="absolute right-0 top-0 h-full w-4/5 max-w-sm bg-white p-8 flex flex-col shadow-2xl" onclick="event.stopPropagation()">
+        <div class="flex justify-between items-center mb-10">
+            <span class="font-extrabold text-blue-900 uppercase">Menu Utama</span>
+            <button onclick="toggleMobileMenu(false)" class="text-3xl">&times;</button>
+        </div>
+        <ul class="space-y-6 font-bold text-lg text-slate-800">
+            <li><a href="javascript:void(0)" onclick="handleMobileNav('home')">Beranda</a></li>
+            <li><a href="javascript:void(0)" onclick="handleMobileNav('profil')">Profil</a></li>
+            <li><a href="javascript:void(0)" onclick="handleMobileNav('program')">Program</a></li>
+            <li><a href="javascript:void(0)" onclick="handleMobileNav('penghargaan')">Penghargaan</a></li>
+            <li><a href="javascript:void(0)" onclick="handleMobileNav('pustaka')">Pustaka Digital</a></li>
+            <li><a href="javascript:void(0)" onclick="handleMobileNav('kontak')">Kontak</a></li>
+        </ul>
+        <div class="mt-auto">
+            <a href="https://link.dana.id/qr/81223546686" target="_blank" class="w-full bg-blue-600 text-white py-4 rounded-xl font-bold flex items-center justify-center">
+                <i class="fas fa-heart mr-2"></i> Donasi DANA
+            </a>
+        </div>
+    </div>
 </div>
 
         </nav>
