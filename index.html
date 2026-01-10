@@ -870,6 +870,30 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
 
         }
+        function toggleMobileMenu(isOpen) {
+    const overlay = document.getElementById('mobile-overlay');
+    const drawer = document.getElementById('mobile-drawer');
+    if (isOpen) {
+        overlay.classList.remove('hidden');
+        setTimeout(() => {
+            overlay.classList.add('active');
+            drawer.classList.add('active');
+        }, 10);
+        document.body.style.overflow = 'hidden'; // Stop scroll saat menu buka
+    } else {
+        overlay.classList.remove('active');
+        drawer.classList.remove('active');
+        setTimeout(() => {
+            overlay.classList.add('hidden');
+        }, 300);
+        document.body.style.overflow = 'auto'; // Aktifkan scroll lagi
+    }
+}
+
+function handleMobileNav(pageId) {
+    toggleMobileMenu(false);
+    showPage(pageId);
+}
 
     </script>
 
