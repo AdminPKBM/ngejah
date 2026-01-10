@@ -14,16 +14,20 @@
         .nav-active { color: #2563eb; border-bottom: 2px solid #2563eb; }
         .glass { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(10px); }
         .hero-gradient { background: linear-gradient(to right, rgba(0,0,0,0.7), rgba(0,0,0,0.2)); }
+        
+        /* Mobile Menu Animation */
+        #mobile-menu { transition: transform 0.3s ease-in-out; transform: translateX(100%); }
+        #mobile-menu.open { transform: translateX(0); }
     </style>
 </head>
-<body class="bg-[#fcfcfc] text-slate-900">
+<body class="bg-[#fcfcfc] text-slate-900 overflow-x-hidden">
 
     <header class="glass fixed top-0 w-full z-[100] border-b border-gray-100">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
             <div class="flex items-center space-x-3 cursor-pointer" onclick="showPage('home')">
                 <img src="https://th.bing.com/th/id/OIP.x_GWXjuzFa3PLePeez0r1AHaHa?w=108&h=108&c=1&bgcl=7871c9&r=0&o=7&dpr=1.3&pid=ImgRC&rm=3" 
                      alt="Logo Ngejah" class="w-10 h-10 rounded-full shadow-md">
-                <span class="text-xl font-extrabold tracking-tight text-blue-900">KOMUNITAS NGEJAH</span>
+                <span class="text-lg md:text-xl font-extrabold tracking-tight text-blue-900">KOMUNITAS NGEJAH</span>
             </div>
             
             <ul class="hidden lg:flex space-x-8 font-semibold text-sm uppercase tracking-wider">
@@ -31,18 +35,43 @@
                 <li><a href="javascript:void(0)" onclick="showPage('profil')" class="nav-link hover:text-blue-600 transition px-1">Profil</a></li>
                 <li><a href="javascript:void(0)" onclick="showPage('program')" class="nav-link hover:text-blue-600 transition px-1">Program</a></li>
                 <li><a href="javascript:void(0)" onclick="showPage('penghargaan')" class="nav-link hover:text-blue-600 transition px-1">Penghargaan</a></li>
-                <li><a href="javascript:void(0)" onclick="showPage('pustaka')" class="nav-link hover:text-blue-600 transition px-1">Pustaka Digital</a></li>
+                <li><a href="javascript:void(0)" onclick="showPage('pustaka')" class="nav-link hover:text-blue-600 transition px-1">Pustaka</a></li>
                 <li><a href="javascript:void(0)" onclick="showPage('kontak')" class="nav-link hover:text-blue-600 transition px-1">Kontak</a></li>
             </ul>
 
-        <div class="flex items-center space-x-4">
-    <a href="https://link.dana.id/qr/81223546686" target="_blank" 
-       class="bg-blue-600 text-white px-6 py-2.5 rounded-full hover:bg-blue-700 transition shadow-lg shadow-blue-200 font-bold text-sm flex items-center">
-        <i class="fas fa-heart mr-2"></i> Donasi DANA
-    </a>
-</div>
+            <div class="flex items-center space-x-4">
+                <a href="https://link.dana.id/qr/81223546686" target="_blank" 
+                   class="hidden md:flex bg-blue-600 text-white px-6 py-2.5 rounded-full hover:bg-blue-700 transition shadow-lg shadow-blue-200 font-bold text-sm items-center">
+                    <i class="fas fa-heart mr-2"></i> Donasi
+                </a>
+
+                <button class="lg:hidden text-blue-900 text-2xl focus:outline-none" onclick="toggleMenu()">
+                    <i class="fas fa-bars" id="menu-icon"></i>
+                </button>
+            </div>
         </nav>
     </header>
+
+    <div id="mobile-menu" class="fixed inset-0 bg-white z-[150] lg:hidden flex flex-col p-8 h-screen">
+        <div class="flex justify-between items-center mb-12">
+            <span class="font-bold text-blue-900 uppercase">Menu Navigasi</span>
+            <button onclick="toggleMenu()" class="text-3xl text-gray-500">&times;</button>
+        </div>
+        <ul class="space-y-6 text-2xl font-bold text-blue-950">
+            <li><a href="javascript:void(0)" onclick="mobileNav('home')">Beranda</a></li>
+            <li><a href="javascript:void(0)" onclick="mobileNav('profil')">Profil</a></li>
+            <li><a href="javascript:void(0)" onclick="mobileNav('program')">Program</a></li>
+            <li><a href="javascript:void(0)" onclick="mobileNav('penghargaan')">Penghargaan</a></li>
+            <li><a href="javascript:void(0)" onclick="mobileNav('pustaka')">Pustaka Digital</a></li>
+            <li><a href="javascript:void(0)" onclick="mobileNav('kontak')">Kontak</a></li>
+        </ul>
+        <div class="mt-auto pb-10">
+            <a href="https://link.dana.id/qr/81223546686" target="_blank" 
+               class="w-full bg-blue-600 text-white py-4 rounded-2xl font-bold flex items-center justify-center text-lg">
+                <i class="fas fa-heart mr-3"></i> Donasi Sekarang
+            </a>
+        </div>
+    </div>
 
     <main id="home" class="page active pt-16">
         <section class="relative h-[85vh] overflow-hidden">
@@ -51,384 +80,59 @@
                  class="absolute inset-0 w-full h-full object-cover" alt="Hero Image">
             <div class="relative z-20 container mx-auto px-6 h-full flex flex-col justify-center">
                 <span class="text-blue-400 font-bold tracking-widest uppercase mb-4 block">Literasi Berbasis Masyarakat</span>
-                <h1 class="text-5xl md:text-7xl font-extrabold text-white leading-tight max-w-3xl">
+                <h1 class="text-4xl md:text-7xl font-extrabold text-white leading-tight max-w-3xl">
                     Membangun <br> <span class="text-blue-400">Budaya Kritis</span>
                 </h1>
                 <p class="text-gray-200 text-lg mt-6 max-w-xl leading-relaxed">
-                    Menyemai semangat gotong royong melalui baca, tulis, dan gerak literasi dari Kp. Sukawangi untuk masa depan yang lebih terang.
+                    Menyemai semangat gotong royong melalui baca, tulis, dan gerak literasi dari Kp. Sukawangi.
                 </p>
-                <div class="mt-10 flex space-x-4">
-                    <button onclick="showPage('profil')" class="bg-white text-blue-900 px-8 py-4 rounded-xl font-bold hover:bg-gray-100 transition shadow-xl">
-                        Kenali Kami
-                    </button>
-                </div>
-            </div>
-        </section>
-
-        <section class="py-12 bg-white border-b">
-            <div class="container mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8">
-                <div class="flex items-center space-x-4">
-                    <div class="bg-blue-50 p-4 rounded-2xl text-blue-600 text-2xl"><i class="fas fa-book"></i></div>
-                    <div><h4 class="text-2xl font-bold">5K+</h4><p class="text-gray-500 text-sm">Buku Tersedia</p></div>
-                </div>
-                <div class="flex items-center space-x-4">
-                    <div class="bg-green-50 p-4 rounded-2xl text-green-600 text-2xl"><i class="fas fa-users"></i></div>
-                    <div><h4 class="text-2xl font-bold">120+</h4><p class="text-gray-500 text-sm">Relawan Aktif</p></div>
-                </div>
-                <div class="flex items-center space-x-4">
-                    <div class="bg-purple-50 p-4 rounded-2xl text-purple-600 text-2xl"><i class="fas fa-id-card"></i></div>
-                    <div><h4 class="text-2xl font-bold">850</h4><p class="text-gray-500 text-sm">Pengunjung & Anggota</p></div>
-                </div>
-                <div class="flex items-center space-x-4">
-                    <div class="bg-orange-50 p-4 rounded-2xl text-orange-600 text-2xl"><i class="fas fa-book-reader"></i></div>
-                    <div><h4 class="text-2xl font-bold">23</h4><p class="text-gray-500 text-sm">Pojok Baca</p></div>
-                </div>
             </div>
         </section>
     </main>
 
     <main id="profil" class="page pt-32 container mx-auto px-6 pb-24">
-        <div class="max-w-5xl mx-auto">
-            <h2 class="text-4xl font-extrabold text-blue-950 mb-8">Tentang Komunitas Ngejah</h2>
-            <div class="grid md:grid-cols-3 gap-12">
-                <div class="md:col-span-2 space-y-6 text-gray-700 leading-relaxed text-lg">
-                    <p>
-                        Komunitas Ngejah adalah komunitas literasi dan pendidikan berbasis masyarakat yang lahir dari semangat gotong royong membangun budaya baca, tulis, dan berpikir kritis di kampung. Berdiri sejak <strong>15 Juli 2010</strong>, Ngejah berkembang dari perpustakaan kecil menjadi gerakan literasi yang melibatkan banyak relawan aktif.
-                    </p>
-                    <div class="bg-blue-50 p-8 rounded-3xl border border-blue-100">
-                        <h4 class="text-xl font-bold text-blue-900 mb-4">Visi & Misi</h4>
-                        <p class="italic mb-4 text-blue-800">"Terwujudnya masyarakat kampung yang literat, kritis, dan berdaya melalui gerakan pendidikan berbasis komunitas."</p>
-                        <ul class="space-y-2 text-sm">
-                            <li><i class="fas fa-check-circle text-blue-500 mr-2"></i> Menumbuhkan minat baca sejak dini.</li>
-                            <li><i class="fas fa-check-circle text-blue-500 mr-2"></i> Menyediakan ruang belajar alternatif yang terbuka dan partisipatif.</li>
-                            <li><i class="fas fa-check-circle text-blue-500 mr-2"></i> Mendorong pelajar dan pemuda untuk aktif menulis dan berkarya.</li>
-                            <li><i class="fas fa-check-circle text-blue-500 mr-2"></i> Menguatkan peran komunitas sebagai mitra pendidikan masyarakat.</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="bg-white p-6 rounded-3xl border border-gray-100 shadow-sm h-fit">
-                    <h4 class="font-bold text-blue-900 mb-6 flex items-center">
-                        <i class="fas fa-user-friends mr-2"></i> Tokoh & Relawan Utama
-                    </h4>
-                    <ul class="space-y-4 text-sm text-gray-600 overflow-y-auto max-h-[500px] pr-2">
-                        <li><strong>Nero Taopik Abdillah</strong><br><span class="text-xs">Pendiri & Penggerak Utama</span></li>
-                        <li><strong>Roni Nuroni</strong><br><span class="text-xs">Pengurus & Lead Literasi</span></li>
-                        <li><strong>Ruli Lesmana</strong><br><span class="text-xs">Koordinator & Dokumentator</span></li>
-                        <li><strong>Budi Iskandar</strong><br><span class="text-xs">Penggerak Kampung Baca</span></li>
-                        <li><strong>Wina Mulyati</strong><br><span class="text-xs">Relawan Pendidikan</span></li>
-                        <li><strong>Iwan Ridwan</strong><br><span class="text-xs">Koordinator Gerakan</span></li>
-                        <li><strong>Toto Muhammad Sodikin</strong><br><span class="text-xs">Logistik & Persiapan</span></li>
-                        <li><strong>Ade Luqman</strong><br><span class="text-xs">Dokumentasi</span></li>
-                        <li class="text-blue-600 font-medium">...dan relawan lainnya</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+        <h2 class="text-4xl font-extrabold text-blue-950">Tentang Komunitas Ngejah</h2>
     </main>
-
-  <main id="program" class="page pt-32 container mx-auto px-6 pb-24">
-        <div class="text-center mb-16">
-            <h2 class="text-4xl font-extrabold text-blue-950">Fokus Kegiatan</h2>
-            <p class="text-gray-500 mt-4 max-w-2xl mx-auto text-lg">
-                Langkah nyata kami dalam membangun peradaban desa melalui jalur literasi dan pendidikan formal/non-formal.
-            </p>
-        </div>
-        
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div class="bg-white p-8 rounded-[2rem] border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300">
-                <div class="w-14 h-14 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center mb-6 text-2xl">
-                    <i class="fas fa-motorcycle"></i>
-                </div>
-                <h3 class="text-xl font-bold mb-3 text-blue-900">Gerakan Kampung Membaca</h3>
-                <p class="text-gray-500 text-sm leading-relaxed">Membawa buku dan materi bacaan ke berbagai titik kampung setiap akhir pekan untuk mendekatkan akses ilmu pengetahuan.</p>
-            </div>
-
-            <div class="bg-white p-8 rounded-[2rem] border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300">
-                <div class="w-14 h-14 bg-green-100 text-green-600 rounded-2xl flex items-center justify-center mb-6 text-2xl">
-                    <i class="fas fa-book-reader"></i>
-                </div>
-                <h3 class="text-xl font-bold mb-3 text-blue-900">TBM AIUEO</h3>
-                <p class="text-gray-500 text-sm leading-relaxed">Pusat literasi utama yang menjadi ruang aman bagi anak, pelajar, dan masyarakat umum untuk mengeksplorasi wawasan.</p>
-            </div>
-
-            <div class="bg-white p-8 rounded-[2rem] border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300">
-                <div class="w-14 h-14 bg-purple-100 text-purple-600 rounded-2xl flex items-center justify-center mb-6 text-2xl">
-                    <i class="fas fa-pen-fancy"></i>
-                </div>
-                <h3 class="text-xl font-bold mb-3 text-blue-900">Jurnalistik Pelajar</h3>
-                <p class="text-gray-500 text-sm leading-relaxed">Pelatihan intensif untuk meningkatkan keterampilan menulis, observasi, dan kemampuan berpikir kritis bagi generasi muda.</p>
-            </div>
-
-            <div class="bg-white p-8 rounded-[2rem] border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300">
-                <div class="w-14 h-14 bg-pink-100 text-pink-600 rounded-2xl flex items-center justify-center mb-6 text-2xl">
-                    <i class="fas fa-child"></i>
-                </div>
-                <h3 class="text-xl font-bold mb-3 text-blue-900">Pendidikan Anak Usia Dini</h3>
-                <p class="text-gray-500 text-sm leading-relaxed mb-4">Layanan pendidikan anak usia dini untuk membangun fondasi karakter dan kognitif.</p>
-                <ul class="text-xs space-y-2 border-t pt-4">
-                    <li class="flex items-start"><i class="fas fa-map-marker-alt text-pink-500 mt-0.5 mr-2"></i> <span><strong>PAUD Sagarabiakta</strong>: Pendeuy, Garut</span></li>
-                    <li class="flex items-start"><i class="fas fa-map-marker-alt text-pink-500 mt-0.5 mr-2"></i> <span><strong>PAUD Celah Cahaya</strong>: Ciparanje, Cibalong, Garut</span></li>
-                </ul>
-            </div>
-
-            <div class="bg-white p-8 rounded-[2rem] border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300">
-                <div class="w-14 h-14 bg-orange-100 text-orange-600 rounded-2xl flex items-center justify-center mb-6 text-2xl">
-                    <i class="fas fa-graduation-cap"></i>
-                </div>
-                <h3 class="text-xl font-bold mb-3 text-blue-900">PKBM Celah Cahaya</h3>
-                <p class="text-gray-500 text-sm leading-relaxed">Layanan pendidikan kesetaraan (Paket A, B, C) untuk memberikan kesempatan belajar bagi warga yang putus sekolah.</p>
-            </div>
-
-            <div class="bg-white p-8 rounded-[2rem] border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300">
-                <div class="w-14 h-14 bg-red-100 text-red-600 rounded-2xl flex items-center justify-center mb-6 text-2xl">
-                    <i class="fas fa-tools"></i>
-                </div>
-                <h3 class="text-xl font-bold mb-3 text-blue-900">LKP/LPK Alpha Beta</h3>
-                <p class="text-gray-500 text-sm leading-relaxed">Lembaga kursus dan pelatihan keterampilan teknis untuk mempersiapkan warga memasuki dunia kerja atau wirausaha.</p>
-            </div>
-
-            <div class="bg-white p-8 rounded-[2rem] border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 lg:col-span-3">
-                <div class="flex flex-col md:flex-row items-center md:items-start gap-6">
-                    <div class="w-14 h-14 bg-yellow-100 text-yellow-600 rounded-2xl flex-shrink-0 flex items-center justify-center text-2xl">
-                        <i class="fas fa-map-pin"></i>
-                    </div>
-                    <div>
-                        <h3 class="text-xl font-bold mb-3 text-blue-900">Pojok Baca Masyarakat</h3>
-                        <p class="text-gray-500 text-sm leading-relaxed">Penyebaran bahan bacaan di titik strategis seperti posyandu, warung, halte, dan tempat umum lainnya guna mempermudah akses bacaan bagi warga di sela-sela aktivitas harian.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
-
-<main id="penghargaan" class="page pt-32 container mx-auto px-6 pb-24">
-        <div class="text-center mb-16">
-            <span class="text-blue-600 font-bold uppercase tracking-widest text-sm">Apresiasi & Dedikasi</span>
-            <h2 class="text-4xl font-extrabold text-blue-950 mt-2">Jejak Prestasi</h2>
-            <p class="text-gray-500 mt-4 max-w-2xl mx-auto text-lg">
-                Penghargaan adalah bonus dari kerja keras kolektif relawan dan warga dalam merawat nyala literasi di pelosok.
-            </p>
-        </div>
-
-        <div class="grid md:grid-cols-2 gap-8">
-            <div class="bg-white rounded-[2.5rem] border border-gray-100 overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 group">
-                <div class="relative h-64 overflow-hidden">
-                    <img src="https://images.unsplash.com/photo-1579113817591-954c6d391ff2?auto=format&fit=crop&q=80&w=800" 
-                         class="w-full h-full object-cover group-hover:scale-110 transition duration-500" alt="Penghargaan Perpustakaan Nasional">
-                    <div class="absolute inset-0 bg-gradient-to-t from-blue-900/80 to-transparent flex items-end p-8">
-                        <span class="bg-yellow-400 text-blue-900 text-xs font-bold px-3 py-1 rounded-full uppercase">Nasional</span>
-                    </div>
-                </div>
-                <div class="p-8">
-                    <h3 class="text-2xl font-bold text-blue-900 mb-3">Nugra Jasadarma Pustaloka</h3>
-                    <p class="text-gray-600 text-sm leading-relaxed mb-6">
-                        Diterima dari Perpustakaan Nasional RI sebagai bentuk apresiasi tertinggi atas dedikasi Komunitas Ngejah dalam menumbuhkembangkan budaya baca di masyarakat pedesaan.
-                    </p>
-                    <div class="flex items-center text-blue-600 font-bold text-sm">
-                        <i class="fas fa-calendar-alt mr-2"></i> Perpusnas RI
-                    </div>
-                </div>
-            </div>
-
-            <div class="bg-white rounded-[2.5rem] border border-gray-100 overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 group">
-                <div class="relative h-64 overflow-hidden">
-                    <img src="https://images.unsplash.com/photo-1531545514256-b1400bc00f31?auto=format&fit=crop&q=80&w=800" 
-                         class="w-full h-full object-cover group-hover:scale-110 transition duration-500" alt="Tokoh Literasi">
-                    <div class="absolute inset-0 bg-gradient-to-t from-blue-900/80 to-transparent flex items-end p-8">
-                        <span class="bg-blue-400 text-white text-xs font-bold px-3 py-1 rounded-full uppercase">Individu</span>
-                    </div>
-                </div>
-                <div class="p-8">
-                    <h3 class="text-2xl font-bold text-blue-900 mb-3">Anugerah Tokoh Penggerak Literasi</h3>
-                    <p class="text-gray-600 text-sm leading-relaxed mb-6">
-                        Diberikan kepada pendiri dan relawan Komunitas Ngejah (Nero Taopik Abdillah) atas konsistensinya menggerakkan pemuda kampung melalui TBM AIUEO dan Gerakan Kampung Membaca.
-                    </p>
-                    <div class="flex items-center text-blue-600 font-bold text-sm">
-                        <i class="fas fa-award mr-2"></i> Tingkat Jawa Barat
-                    </div>
-                </div>
-            </div>
-
-            <div class="bg-white rounded-[2.5rem] border border-gray-100 p-8 flex flex-col md:flex-row gap-8 shadow-sm hover:shadow-xl transition-all lg:col-span-2">
-                <div class="md:w-1/3 h-48 rounded-2xl overflow-hidden shadow-inner">
-                    <img src="https://images.unsplash.com/photo-1524178232363-1fb28f74b0cd?auto=format&fit=crop&q=80&w=600" 
-                         class="w-full h-full object-cover" alt="Gramedia Award">
-                </div>
-                <div class="md:w-2/3">
-                    <div class="flex items-center space-x-2 mb-4">
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <span class="text-sm font-bold text-blue-600 uppercase">Finalis Nasional</span>
-                    </div>
-                    <h3 class="text-2xl font-bold text-blue-900 mb-3">Gramedia Reading Community Competition</h3>
-                    <p class="text-gray-600 text-sm leading-relaxed">
-                        Komunitas Ngejah terpilih sebagai salah satu komunitas baca terbaik yang mampu menginspirasi perubahan sosial melalui buku di wilayah Jawa Barat dan sekitarnya.
-                    </p>
-                    <div class="mt-6 flex gap-4">
-                        <div class="bg-blue-50 px-4 py-2 rounded-lg text-xs font-bold text-blue-700">Inovasi Literasi</div>
-                        <div class="bg-green-50 px-4 py-2 rounded-lg text-xs font-bold text-green-700">Pemberdayaan Masyarakat</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="mt-20">
-            <h4 class="text-xl font-bold text-blue-900 mb-8 flex items-center">
-                <i class="fas fa-camera-retro mr-3 text-blue-600"></i> Galeri Apresiasi & Media
-            </h4>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div class="aspect-square rounded-2xl bg-gray-100 overflow-hidden">
-                    <img src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&q=80&w=400" class="w-full h-full object-cover hover:scale-105 transition">
-                </div>
-                <div class="aspect-square rounded-2xl bg-gray-100 overflow-hidden">
-                    <img src="https://images.unsplash.com/photo-1551818255-e6e10975bc17?auto=format&fit=crop&q=80&w=400" class="w-full h-full object-cover hover:scale-105 transition">
-                </div>
-                <div class="aspect-square rounded-2xl bg-gray-100 overflow-hidden">
-                    <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&q=80&w=400" class="w-full h-full object-cover hover:scale-105 transition">
-                </div>
-                <div class="aspect-square rounded-2xl bg-gray-100 overflow-hidden border-2 border-dashed border-blue-200 flex items-center justify-center p-6 text-center">
-                    <p class="text-[10px] font-bold text-blue-400 uppercase">Liputan Media: Metro TV, Kompas, PR, & Radar Garut</p>
-                </div>
-            </div>
-        </div>
-    </main>
-    
-   <main id="pustaka" class="page pt-32 container mx-auto px-6 pb-24">
-        <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-6">
-            <div>
-                <span class="text-blue-600 font-bold uppercase tracking-widest text-sm">Database Literasi</span>
-                <h2 class="text-4xl font-extrabold text-blue-950 mt-2">Pustaka Digital</h2>
-                <p class="text-gray-500 mt-2 text-lg">Mengelola lebih dari <span class="text-blue-600 font-bold">5.240</span> koleksi literatur.</p>
-            </div>
-            <div class="relative w-full md:w-96">
-                <i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
-                <input type="text" id="bookSearch" placeholder="Cari judul, penulis, atau kategori..." 
-                    class="w-full pl-12 pr-4 py-3 rounded-2xl bg-white border border-gray-200 shadow-sm focus:ring-2 focus:ring-blue-500 outline-none transition">
-            </div>
-        </div>
-
-        <div id="bookGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-8">
-            
-            <div class="book-card group cursor-pointer">
-                <div class="aspect-[3/4] bg-gray-200 rounded-2xl mb-4 overflow-hidden shadow-md group-hover:shadow-2xl group-hover:-translate-y-2 transition-all duration-300">
-                    <img src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&q=80&w=600" class="w-full h-full object-cover" alt="Cover Buku">
-                </div>
-                <h4 class="font-extrabold text-sm text-blue-900 line-clamp-1 uppercase">Filosofi Teras</h4>
-                <p class="text-xs text-gray-500 italic">Henry Manampiring</p>
-            </div>
-
-            <div class="book-card group cursor-pointer">
-                <div class="aspect-[3/4] bg-gray-200 rounded-2xl mb-4 overflow-hidden shadow-md group-hover:shadow-2xl group-hover:-translate-y-2 transition-all duration-300">
-                    <img src="https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&q=80&w=600" class="w-full h-full object-cover" alt="Cover Buku">
-                </div>
-                <h4 class="font-extrabold text-sm text-blue-900 line-clamp-1 uppercase">Laskar Pelangi</h4>
-                <p class="text-xs text-gray-500 italic">Andrea Hirata</p>
-            </div>
-
-            <div class="book-card group cursor-pointer">
-                <div class="aspect-[3/4] bg-gray-200 rounded-2xl mb-4 overflow-hidden shadow-md group-hover:shadow-2xl group-hover:-translate-y-2 transition-all duration-300">
-                    <img src="https://images.unsplash.com/photo-1541963463532-d68292c34b19?auto=format&fit=crop&q=80&w=600" class="w-full h-full object-cover" alt="Cover Buku">
-                </div>
-                <h4 class="font-extrabold text-sm text-blue-900 line-clamp-1 uppercase">Bumi Manusia</h4>
-                <p class="text-xs text-gray-500 italic">Pramoedya Ananta Toer</p>
-            </div>
-
-            <div class="book-card group cursor-pointer">
-                <div class="aspect-[3/4] bg-gray-200 rounded-2xl mb-4 overflow-hidden shadow-md group-hover:shadow-2xl group-hover:-translate-y-2 transition-all duration-300">
-                    <img src="https://images.unsplash.com/photo-1495446815901-a7297e633e8d?auto=format&fit=crop&q=80&w=600" class="w-full h-full object-cover" alt="Cover Buku">
-                </div>
-                <h4 class="font-extrabold text-sm text-blue-900 line-clamp-1 uppercase">Negeri 5 Menara</h4>
-                <p class="text-xs text-gray-500 italic">A. Fuadi</p>
-            </div>
-
-            <div class="book-card group cursor-pointer">
-                <div class="aspect-[3/4] bg-gray-200 rounded-2xl mb-4 overflow-hidden shadow-md group-hover:shadow-2xl group-hover:-translate-y-2 transition-all duration-300">
-                    <img src="https://images.unsplash.com/photo-1511102339561-6a1a008a341d?auto=format&fit=crop&q=80&w=600" class="w-full h-full object-cover" alt="Cover Buku">
-                </div>
-                <h4 class="font-extrabold text-sm text-blue-900 line-clamp-1 uppercase">Madilog</h4>
-                <p class="text-xs text-gray-500 italic">Tan Malaka</p>
-            </div>
-
-            <div class="book-card group cursor-pointer">
-                <div class="aspect-[3/4] bg-gray-200 rounded-2xl mb-4 overflow-hidden shadow-md group-hover:shadow-2xl group-hover:-translate-y-2 transition-all duration-300">
-                    <img src="https://images.unsplash.com/photo-1589829085413-56de8ae18c73?auto=format&fit=crop&q=80&w=600" class="w-full h-full object-cover" alt="Cover Buku">
-                </div>
-                <h4 class="font-extrabold text-sm text-blue-900 line-clamp-1 uppercase">Hujan</h4>
-                <p class="text-xs text-gray-500 italic">Tere Liye</p>
-            </div>
-
-            <div class="col-span-full mt-12 py-16 bg-blue-50/50 rounded-[2.5rem] border-2 border-dashed border-blue-100 flex flex-col items-center text-center px-6">
-                <div class="w-16 h-16 bg-blue-600 text-white rounded-full flex items-center justify-center text-2xl mb-4 shadow-lg">
-                    <i class="fas fa-database"></i>
-                </div>
-                <h3 class="text-2xl font-bold text-blue-900">Eksplorasi Katalog Lengkap</h3>
-                <p class="text-gray-600 max-w-lg mt-2 mb-8">
-                    Database kami mencakup 5.240 judul buku fisik di TBM AIUEO dan koleksi digital. Gunakan bilah pencarian di atas untuk menemukan buku spesifik.
-                </p>
-                <div class="flex flex-wrap justify-center gap-4">
-                    <button class="bg-blue-600 text-white px-8 py-3 rounded-xl font-bold hover:bg-blue-700 transition flex items-center shadow-lg shadow-blue-200">
-                        <i class="fas fa-file-pdf mr-2"></i> Download Katalog (PDF)
-                    </button>
-                    <button class="bg-white text-blue-600 border border-blue-200 px-8 py-3 rounded-xl font-bold hover:bg-blue-50 transition flex items-center">
-                        <i class="fas fa-external-link-alt mr-2"></i> Akses OPAC
-                    </button>
-                </div>
-            </div>
-        </div>
-    </main>
-
-    <main id="kontak" class="page pt-32 container mx-auto px-6 pb-24">
-        <div class="grid lg:grid-cols-2 gap-16">
-            <div>
-                <h2 class="text-4xl font-extrabold text-blue-950 mb-6">Hubungi Kami</h2>
-                <div class="space-y-6">
-                    <div class="flex items-center space-x-4">
-                        <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center"><i class="fas fa-map-marker-alt"></i></div>
-                        <div><p class="text-xs text-gray-400">Alamat</p><p class="font-bold text-sm">Kp. Sukawangi, Desa Sukawangi, Singajaya, Garut</p></div>
-                    </div>
-                    <div class="flex items-center space-x-4">
-                        <div class="w-12 h-12 bg-green-100 text-green-600 rounded-full flex items-center justify-center"><i class="fab fa-whatsapp"></i></div>
-                        <div><p class="text-xs text-gray-400">WhatsApp</p><p class="font-bold text-sm">081223546686</p></div>
-                    </div>
-                    <div class="flex items-center space-x-4">
-                        <div class="w-12 h-12 bg-red-100 text-red-600 rounded-full flex items-center justify-center"><i class="fas fa-envelope"></i></div>
-                        <div><p class="text-xs text-gray-400">Email</p><p class="font-bold text-sm">gerimisculamega@yahoo.co.id</p></div>
-                    </div>
-                </div>
-            </div>
-            <div class="bg-white p-8 rounded-3xl border border-gray-100 shadow-2xl">
-                <form class="space-y-4">
-                    <input type="text" placeholder="Nama Lengkap" class="w-full px-5 py-3 rounded-xl bg-gray-50 border outline-none focus:ring-2 focus:ring-blue-500 transition">
-                    <textarea rows="4" placeholder="Pesan Anda" class="w-full px-5 py-3 rounded-xl bg-gray-50 border outline-none focus:ring-2 focus:ring-blue-500 transition"></textarea>
-                    <button class="w-full bg-blue-600 text-white py-4 rounded-xl font-bold hover:bg-blue-700 transition">Kirim</button>
-                </form>
-            </div>
-        </div>
-    </main>
-
-    <footer class="bg-blue-950 text-white pt-20 pb-10">
-        <div class="container mx-auto px-6 text-center">
-            <p class="text-gray-400 mb-4">Membangun peradaban dari pedalaman lewat aksara dan cinta.</p>
-            <div class="border-t border-white/10 pt-8 text-gray-500 text-sm">
-                &copy; 2026 Komunitas Ngejah. Made with <i class="fas fa-heart text-red-500"></i> in Garut.
-            </div>
-        </div>
-    </footer>
-
     <script>
+        // Fungsi untuk menampilkan halaman
         function showPage(pageId) {
             document.querySelectorAll('.page').forEach(p => {
                 p.classList.remove('active');
                 p.style.opacity = '0';
             });
             const nextActive = document.getElementById(pageId);
-            nextActive.classList.add('active');
-            setTimeout(() => { nextActive.style.opacity = '1'; }, 50);
+            if(nextActive) {
+                nextActive.classList.add('active');
+                setTimeout(() => { nextActive.style.opacity = '1'; }, 50);
+            }
 
+            // Update status link navigasi (Desktop)
             document.querySelectorAll('.nav-link').forEach(link => {
                 link.classList.remove('nav-active');
-                if(link.getAttribute('onclick').includes(pageId)) link.classList.add('nav-active');
+                const onclickAttr = link.getAttribute('onclick');
+                if(onclickAttr && onclickAttr.includes(pageId)) link.classList.add('nav-active');
             });
+            
             window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Fungsi Toggle Mobile Menu
+        function toggleMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('open');
+            
+            // Mencegah scroll pada body saat menu terbuka
+            if (menu.classList.contains('open')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        // Fungsi navigasi khusus mobile (Menutup menu setelah klik)
+        function mobileNav(pageId) {
+            toggleMenu();
+            showPage(pageId);
         }
     </script>
 </body>
